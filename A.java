@@ -3,6 +3,7 @@ class A
   public A()
   {
      System.out.println("A is instantiated.");
+     System.out.println("NIIT");
   }
  public static void main(String arr[])
  {
