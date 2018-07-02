@@ -58,7 +58,7 @@ class BinaryTree{
     }
 
     void deleteNode(){
-        Node *current, *parent;
+        Node *current, *parent, *child;
         int num;
         cout<<"Enter number to delete from tree"<<endl;
         cin>>num;
@@ -66,13 +66,50 @@ class BinaryTree{
         current = root;
         parent = NULL;
 
-        while(current != NULL || num != current->data){
+        while(current != NULL && num != current->data){
             parent = current;
             if(num < current->data)
                 current = current->left;
             else if(num > current->data)
                 current = current->right;
         }
+        if(parent == NULL){
+        	root = NULL;
+        	delete(current);
+        	cout<<num<<" deleted from tree"<<endl;
+		}
+		if(current->left == NULL && current->right == NULL){
+			
+			if(num < parent->data)
+				parent->left = NULL;
+			else if(num > parent->data)
+				parent->right = NULL;
+			
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+		}
+		else if(current->left != NULL && current->right == NULL){
+			
+			child = current->left;
+			if(current == parent->left)
+				parent->left = child;
+			if(current == parent->right)
+				parent->right = child;
+				
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+		}
+		else if(current->left == NULL && current->right != NULL){
+			
+			child = current->right;
+			if(current == parent->left)
+				parent->left = child;
+			if(current == parent->right)
+				parent->right = child;
+				
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+		}
     }
 };
 
@@ -87,6 +124,9 @@ int main(){
             case 1:
                 bt.insertNode();
                 break;
+            case 2:
+            	bt.deleteNode();
+            	break;
         }
         cout<<"Do you want to continue(y/n)"<<endl;
         cin>>choice;
