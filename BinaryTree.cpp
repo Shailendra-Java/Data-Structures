@@ -50,15 +50,78 @@ class BinaryTree{
                 parent->left = ptr;
                 cout<<ptr->data<<" inserted in left of "<<parent->data<<endl;
             }
-            if(ptr->data > parent->data){
+            else if(ptr->data > parent->data){
                 parent->right = ptr;
                 cout<<ptr->data<<" inserted in right of "<<parent->data<<endl;
             }
+            else
+                cout<<"Duplicate element on same parent"<<endl;
         }
     }
 
+    void deleteLeaf(Node* &current, Node* &parent, int num){
+
+        	if(num < parent->data)
+				parent->left = NULL;
+			else if(num > parent->data)
+				parent->right = NULL;
+
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+    }
+
+    void deleteHavingLeft(Node* &current, Node* &parent, int num){
+
+            Node *child;
+            child = current->left;
+			if(current == parent->left)
+				parent->left = child;
+			if(current == parent->right)
+				parent->right = child;
+
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+    }
+
+    void deleteHavingRight(Node* &current, Node* &parent, int num){
+
+            Node *child;
+            child = current->right;
+			if(current == parent->left)
+				parent->left = child;
+			if(current == parent->right)
+				parent->right = child;
+
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+    }
+
+    void deleteHavingBoth(Node* &current, Node* &parent, int num){
+
+            Node *inorder_succ;
+            inorder_succ = current->right;
+            while(inorder_succ->left != NULL){
+                inorder_succ = inorder_succ->left;
+            }
+
+            current->data = inorder_succ->data;
+            if(inorder_succ->left == NULL && inorder_succ->right == NULL){
+
+                deleteLeaf(inorder_succ,parent,num);
+            }
+
+            else if(inorder_succ->left != NULL && inorder_succ->right == NULL){
+
+                deleteHavingLeft(inorder_succ,parent,num);
+            }
+            else if(inorder_succ->left == NULL && inorder_succ->right != NULL){
+
+                deleteHavingRight(inorder_succ,parent,num);
+            }
+    }
+
     void deleteNode(){
-        Node *current, *parent, *child;
+        Node *current, *parent;
         int num;
         cout<<"Enter number to delete from tree"<<endl;
         cin>>num;
@@ -78,38 +141,72 @@ class BinaryTree{
         	delete(current);
         	cout<<num<<" deleted from tree"<<endl;
 		}
+
 		if(current->left == NULL && current->right == NULL){
-			
-			if(num < parent->data)
-				parent->left = NULL;
-			else if(num > parent->data)
-				parent->right = NULL;
-			
-			delete(current);
-			cout<<num<<" deleted from tree"<<endl;
+
+            deleteLeaf(current,parent,num);
 		}
+
 		else if(current->left != NULL && current->right == NULL){
-			
-			child = current->left;
-			if(current == parent->left)
-				parent->left = child;
-			if(current == parent->right)
-				parent->right = child;
-				
-			delete(current);
-			cout<<num<<" deleted from tree"<<endl;
+
+			deleteHavingLeft(current,parent,num);
 		}
 		else if(current->left == NULL && current->right != NULL){
-			
-			child = current->right;
-			if(current == parent->left)
-				parent->left = child;
-			if(current == parent->right)
-				parent->right = child;
-				
-			delete(current);
-			cout<<num<<" deleted from tree"<<endl;
+
+			deleteHavingRight(current,parent,num);
 		}
+		else{
+
+            deleteHavingBoth(current,parent,num);
+		}
+    }
+
+    void printInorder(Node* &node){
+
+        if (node == NULL)
+            return;
+
+        printInorder(node->left);
+        cout << node->data << " ";
+        printInorder(node->right);
+    }
+
+    void printPreorder(Node* &node){
+
+        if (node == NULL)
+            return;
+
+        cout << node->data << " ";
+        printPreorder(node->left);
+        printPreorder(node->right);
+    }
+
+    void printPostorder(Node* &node){
+
+        if (node == NULL)
+            return;
+
+        printPostorder(node->left);
+        printPostorder(node->right);
+        cout << node->data << " ";
+    }
+
+    void display(){
+
+        cout<<"Inorder Traversal"<<endl;
+        cout<<"----------------------------------------------------"<<endl;
+        printInorder(root);
+        cout<<"\n----------------------------------------------------"<<endl;
+
+        cout<<"Preorder Traversal"<<endl;
+        cout<<"----------------------------------------------------"<<endl;
+        printPreorder(root);
+        cout<<"\n----------------------------------------------------"<<endl;
+
+        cout<<"Postorder Traversal"<<endl;
+        cout<<"----------------------------------------------------"<<endl;
+        printPostorder(root);
+        cout<<"\n----------------------------------------------------"<<endl;
     }
 };
 
@@ -127,8 +224,12 @@ int main(){
             case 2:
             	bt.deleteNode();
             	break;
+            case 3:
+                bt.display();
+                break;
         }
         cout<<"Do you want to continue(y/n)"<<endl;
         cin>>choice;
     }while(choice == 'y' || choice == 'Y');
 }
+
