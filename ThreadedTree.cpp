@@ -53,10 +53,34 @@ class ThreadedTree{
             }
         }
     }
+    
+    void getPositionForDelete(Node* &current, Node* &parent, int data){
+
+        current = head->left;
+        while(current != NULL && data != current->data){
+            parent = current;
+            if((data < current->data) && (current->lth == 1)){
+                current = current->left;
+                continue;
+            }
+            else if((data < current->data) && (current->lth == 0)){
+                current = NULL;
+                continue;
+            }
+            else if((data > current->data) && (current->rth == 1)){
+                current = current->right;
+                continue;
+            }
+            else if((data > current->data) && (current->rth == 0)){
+                current = NULL;
+                continue;
+            }
+        }
+    }
 
     void insertNode(){
 
-        Node *temp, *parent, *current;
+        Node *temp;
         int num;
         cout<<"Enter Number to insert"<<endl;
         cin>>num;
@@ -92,12 +116,68 @@ class ThreadedTree{
     }
 
     void deleteNode(){
-        Node *parent = *current = head;
+    	Node *child, *inorder_pre, *inorder_succ;
+        parent = current = head;
+        int num;
+        cout<<"Enter number to delete"<<endl;
+        cin>>num;
         if(head->left == head){
 
             cout<<"Sorry list is empty"<<endl;
             return;
         }
+        getPositionForDelete(current,parent,num);
+        if(current == NULL){
+        	cout<<"Number is not present in tree"<<endl;
+        	return;
+		}
+        	
+        else if(current->left == head && current->right == head ){
+        	head->lth = 0;
+        	head->left = head;
+        	delete(current);
+        	cout<<"Now tree is empty"<<endl;
+		}
+		else if(current->lth == 0 && current->rth == 0){
+			if(parent->lth == 1 && num < parent->data){
+				parent->lth = 0;
+				parent->left = current->left;
+				delete(current);
+				cout<<num<<" deleted from tree"<<endl;
+			}
+			else{
+				parent->rth = 0;
+				parent->right = current->right;
+				delete(current);
+				cout<<num<<" deleted from tree"<<endl;
+			}
+		}
+		else if(current->lth == 1 && current->rth == 0){
+			child = current->left;
+			if(current->data < parent->data){
+				parent->left = child;
+			}
+			inorder_pre = current->left;
+			inorder_succ = current->right;
+			
+			inorder_pre->right = inorder_succ;
+			inorder_pre->rth = 0;
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+		}
+		else if(current->lth == 0 && current->rth == 1){
+			child = current->right;
+			if(current->data < parent->data){
+				parent->left = child;
+			}
+			inorder_pre = current->left;
+			inorder_succ = current->right;
+			
+			inorder_succ->left = inorder_pre;
+			inorder_succ->lth = 0;
+			delete(current);
+			cout<<num<<" deleted from tree"<<endl;
+		}
     }
 };
 
