@@ -129,10 +129,14 @@ class LinkedListDemo
                     prev = current;
                     current = current->next;
                 }
-                prev->next = current->next;
-                cout<<"Node to be deleted :  "<<current->data<<endl;
-                delete(current);
-                cout<<"Node deleted"<<endl;
+                if(current->data != data)
+                	cout<<"Sorry number is not present"<<endl;
+                else{
+	                prev->next = current->next;
+	                cout<<"Node to be deleted :  "<<current->data<<endl;
+	                delete(current);
+	                cout<<"Node deleted"<<endl;
+            	}
             }
 		}
 		void deleteLast()
@@ -148,10 +152,17 @@ class LinkedListDemo
                     prev = last;
                     last = last->next;
                 }
-                prev->next = NULL;
-                cout<<"Node to be deleted :  "<<last->data<<endl;
-                delete(last);
-                cout<<"Node deleted"<<endl;
+                if(prev == NULL){
+                	start = NULL;
+                	delete(last);
+                	cout<<"Now List is empty"<<endl;
+				}
+				else{
+	                prev->next = NULL;
+	                cout<<"Node to be deleted :  "<<last->data<<endl;
+	                delete(last);
+	                cout<<"Node deleted"<<endl;
+            	}
             }
 		}
 		void display()
