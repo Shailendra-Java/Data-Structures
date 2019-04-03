@@ -165,6 +165,29 @@ class LinkedListDemo
             	}
             }
 		}
+		void searchItem()
+		{
+		    int num;
+		    Node *curr;
+		    cout<<"Enter number to search"<<endl;
+		    cin>>num;
+		    curr = start;
+		    if(start == NULL)
+            {
+                cout<<"Sorry list is empty"<<endl;
+            }
+            else
+            {
+                while(curr != NULL && num != curr->data)
+                {
+                    curr = curr->next;
+                }
+                if(curr != NULL)
+                    cout<<"Number found in list"<<endl;
+                else
+                    cout<<"Number not in list"<<endl;
+            }
+		}
 		void display()
 		{
 			Node *temp;
@@ -197,7 +220,8 @@ int main()
         cout<<"5=> Delete at position"<<endl;
         cout<<"6=> Delete at last"<<endl;
         cout<<"7=> Display all list elements"<<endl;
-        cout<<"8=> Exit"<<endl;
+        cout<<"8=> Search an element in list"<<endl;
+        cout<<"9=> Exit"<<endl;
         cout<<"------------------------------"<<endl;
         cout<<"Enter your choice"<<endl;
         cin>>opr;
@@ -225,6 +249,9 @@ int main()
                 lld.display();
                 break;
             case 8:
+                lld.searchItem();
+                break;
+            case 9:
                 exit(0);
             default:
                 cout<<"Invalid Operation"<<endl;
