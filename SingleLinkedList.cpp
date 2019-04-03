@@ -11,10 +11,10 @@ class Node
 class LinkedListDemo
 {
 	public:
-		Node *start;
+		Node *start, *last;
 		LinkedListDemo()
 		{
-			start = NULL;
+			start = last = NULL;
 		}
 
 		Node* createNode(int x)
@@ -31,23 +31,18 @@ class LinkedListDemo
 		}
 		void insertLast()
 		{
-			Node *temp, *last;
+			Node *temp;
 			int num;
 			cout<<"Enter a number"<<endl;
 			cin>>num;
 			temp = createNode(num);
-			last = start;
 			if(start==NULL)
 			{
-				start = temp;
+				start = last = temp;
 				cout<<"First Node created"<<endl;
 			}
 			else
 			{
-				while(last->next != NULL)
-				{
-					last = last->next;
-				}
 				last->next = temp;
 				cout<<"Node inserted"<<endl;
 			}
@@ -63,7 +58,7 @@ class LinkedListDemo
 			prev = NULL;
 			if(start==NULL)
 			{
-				start = temp;
+				start = last = temp;
 				cout<<"First Node created"<<endl;
 			}
 			else
@@ -87,7 +82,7 @@ class LinkedListDemo
             temp = createNode(data);
             if(start==NULL)
             {
-                start = temp;
+                start = last = temp;
                 cout<<"First Node created"<<endl;
             }
             else{
@@ -141,26 +136,26 @@ class LinkedListDemo
 		}
 		void deleteLast()
 		{
-            Node *last, *prev;
-            last = start;
+            Node *curr, *prev;
             prev = NULL;
+            curr = start;
             if(start == NULL)
                 cout<<"List is empty"<<endl;
             else
             {
-                while(last->next != NULL){
-                    prev = last;
-                    last = last->next;
+                while(curr->next != NULL){
+                    prev = curr;
+                    curr = curr->next;
                 }
                 if(prev == NULL){
-                	start = NULL;
-                	delete(last);
+                	start = last = NULL;
+                	delete(curr);
                 	cout<<"Now List is empty"<<endl;
 				}
 				else{
 	                prev->next = NULL;
-	                cout<<"Node to be deleted :  "<<last->data<<endl;
-	                delete(last);
+	                cout<<"Node to be deleted :  "<<curr->data<<endl;
+	                delete(curr);
 	                cout<<"Node deleted"<<endl;
             	}
             }
