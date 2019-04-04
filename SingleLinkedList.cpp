@@ -63,15 +63,28 @@ class LinkedListDemo
 			}
 			else
             {
-				while(current->data <temp->data && current != NULL)
+				while(current->data <temp->data && current->next != NULL)
 				{
 				    prev = current;
 					current = current->next;
 				}
-				prev->next = temp;
-				temp->next = current;
+				if(prev==NULL)
+            			{
+                			temp->next=start;
+               				 start=temp;
+            			}
+           		 	else
+                		if(current->next==NULL)
+            			{
+                			current->next=temp;
+            			}
+            			else
+            			{
+                			prev->next=temp;
+                			temp->next=current;
+            			}
 				cout<<"Node inserted at their correct position"<<endl;
-            }
+            		}
 		}
 		void insertFront()
 		{
