@@ -38,6 +38,7 @@ class Operations
             }
             else{
                 START->prev = newNode;
+                newNode->next = START;
                 START = newNode;
                 cout<<"Node inserted at Front"<<endl;
             }
@@ -173,6 +174,25 @@ class Operations
                 cout<<"Node Deleted from last"<<endl;
             }
         }
+        void search()
+        {
+            int item;
+            Node *curr = START;
+            cout<<"Enter number to search"<<endl;
+            cin>>item;
+            if(START == NULL){
+                cout<<"List is empty"<<endl;
+                return;
+            }
+            while(curr != NULL){
+                if(item == curr->data){
+                    cout<<"Number found in list"<<endl;
+                    break;
+                }
+            }
+            if(curr == NULL)
+                cout<<"Number not found"<<endl;
+        }
         void printAsc()
         {
             Node *curr = START;
@@ -240,7 +260,7 @@ main()
             case 7:
                 lio.deleteFromLast();
                 break;
-            /*case 8:
+            case 8:
                 lio.search();
                 break; */
 
