@@ -62,7 +62,7 @@ class LinkedListDemo
 				cout<<"First Node created"<<endl;
 			}
 			else
-            {
+			{
 				while(current->data <temp->data && current->next != NULL)
 				{
 				    prev = current;
@@ -73,10 +73,10 @@ class LinkedListDemo
                 			temp->next=start;
                				 start=temp;
             			}
-           		 	else
-                		if(current->next==NULL)
+           		 	else if(current->next==NULL)
             			{
                 			current->next=temp;
+					last = current;
             			}
             			else
             			{
@@ -88,90 +88,92 @@ class LinkedListDemo
 		}
 		void insertFront()
 		{
-            int data;
-            Node *temp;
-            cout<<"Enter any element"<<endl;
-            cin>>data;
-            temp = createNode(data);
-            if(start==NULL)
-            {
-                start = last = temp;
-                cout<<"First Node created"<<endl;
-            }
-            else{
-                temp->next = start;
-                start = temp;
-                cout<<"Node inserted "<<endl;
-            }
+		    int data;
+		    Node *temp;
+		    cout<<"Enter any element"<<endl;
+		    cin>>data;
+		    temp = createNode(data);
+		    if(start==NULL)
+		    {
+			start = last = temp;
+			cout<<"First Node created"<<endl;
+		    }
+		    else{
+			temp->next = start;
+			start = temp;
+			cout<<"Node inserted at front"<<endl;
+		    }
 
 		}
 		void deleteFront()
 		{
-            Node *current;
-            current = start;
-            if(start == NULL)
-                cout<<"Sorry List is empty"<<endl;
-            else
-            {
-                start = start->next;
-                cout<<"Node to be deleted :  "<<current->data<<endl;
-                delete(current);
-                cout<<"First Node Deleted"<<endl;
-            }
+		    Node *current;
+		    current = start;
+		    if(start == NULL)
+			cout<<"Sorry List is empty"<<endl;
+		    else
+		    {
+			start = start->next;
+			cout<<"Node to be deleted :  "<<current->data<<endl;
+			delete(current);
+			cout<<"First Node Deleted"<<endl;
+            	    }
 		}
+	
 		void deleteMid()
 		{
-            Node *prev, *current;
-            int data;
-            cout<<"Enter element to delete"<<endl;
-            cin>>data;
-            prev = current = start;
-            if(start==NULL)
-            {
-                cout<<"Sorry list is empty"<<endl;
-            }
-            else
-            {
-                while(current->data != data && current->next != NULL)
-                {
-                    prev = current;
-                    current = current->next;
-                }
-                if(current->data != data)
-                	cout<<"Sorry number is not present"<<endl;
-                else{
-	                prev->next = current->next;
-	                cout<<"Node to be deleted :  "<<current->data<<endl;
-	                delete(current);
-	                cout<<"Node deleted"<<endl;
-            	}
-            }
+		    Node *prev, *current;
+		    int data;
+		    cout<<"Enter element to delete"<<endl;
+		    cin>>data;
+		    prev = current = start;
+		    if(start==NULL)
+		    {
+			cout<<"Sorry list is empty"<<endl;
+		    }
+		    else
+		    {
+			while(current->data != data && current->next != NULL)
+			{
+			    prev = current;
+			    current = current->next;
+			}
+			if(current->data != data)
+				cout<<"Sorry number is not present"<<endl;
+			else{
+				prev->next = current->next;
+				cout<<"Node to be deleted :  "<<current->data<<endl;
+				delete(current);
+				cout<<"Node deleted"<<endl;
+			}
+            	   }
 		}
+	
 		void deleteLast()
 		{
-            Node *curr, *prev;
-            prev = NULL;
-            curr = start;
-            if(start == NULL)
-                cout<<"List is empty"<<endl;
-            else
-            {
-                while(curr->next != NULL){
-                    prev = curr;
-                    curr = curr->next;
-                }
-                if(prev == NULL){
-                	start = last = NULL;
-                	delete(curr);
-                	cout<<"Now List is empty"<<endl;
-				}
-				else{
-	                prev->next = NULL;
-	                cout<<"Node to be deleted :  "<<curr->data<<endl;
-	                delete(curr);
-	                cout<<"Node deleted"<<endl;
-            	}
-            }
+		    Node *curr, *prev;
+		    prev = NULL;
+		    curr = start;
+		    if(start == NULL)
+			cout<<"List is empty"<<endl;
+		    else
+		    {
+			while(curr->next != NULL){
+			    prev = curr;
+			    curr = curr->next;
+			}
+			if(prev == NULL){
+				start = last = NULL;
+				delete(curr);
+				cout<<"Now List is empty"<<endl;
+			}
+			else{
+				prev->next = NULL;
+				cout<<"Node to be deleted :  "<<curr->data<<endl;
+				delete(curr);
+				cout<<"Node deleted"<<endl;
+			}
+            	    }
 		}
 		void searchItem()
 		{
@@ -181,20 +183,20 @@ class LinkedListDemo
 		    cin>>num;
 		    curr = start;
 		    if(start == NULL)
-            {
-                cout<<"Sorry list is empty"<<endl;
-            }
-            else
-            {
-                while(curr != NULL && num != curr->data)
-                {
-                    curr = curr->next;
-                }
-                if(curr != NULL)
-                    cout<<"Number found in list"<<endl;
-                else
-                    cout<<"Number not in list"<<endl;
-            }
+            	    {
+                	cout<<"Sorry list is empty"<<endl;
+            	    }
+		    else
+		    {
+			while(curr != NULL && num != curr->data)
+			{
+			    curr = curr->next;
+			}
+			if(curr != NULL)
+			    cout<<"Number found in list"<<endl;
+			else
+			    cout<<"Number not in list"<<endl;
+		    }
 		}
 		void display()
 		{
