@@ -1,40 +1,33 @@
 #include<iostream>
 using namespace std;
 
-int binarySearch(int arr[], int start, int end, int itemSearch)
+void binarySearch(int arr[], int start, int end, int itemSearch)
 {
-   if (end >= start)
-   {
-        int middle = start + (end - start)/2;
-
-       //if found at mid position
-        if (arr[middle] == itemSearch)
-             return middle;
-
-       // if item is smaller than mid element, search in left subarray
-        if (arr[middle] > itemSearch)
-          return binarySearch(arr, start, middle-1, itemSearch);
-
-      //else search in right subarray
-        return binarySearch(arr, middle+1, end, itemSearch);
+   int mid = (start+end)/2;
+   while(start <= end){
+      if(itemSearch == arr[mid]){
+         cout<<itemSearch<<" found at position "<<mid+1<<endl;
+         break;
+      }
+      else if(itemSearch > arr[mid])
+         start = mid+1;
+      else
+         end = mid-1;
+      mid = (start+end)/2;
    }
-
-  //if element is not present return -1
-    return -1;
 }
 
 int main(void)
 {
-   int array[] = {10, 15, 19, 24, 30};
-   int size = sizeof(array)/ sizeof(array[0]);
-   int itemSearch = 24;
-   int position = binarySearch(array, 0, size-1, itemSearch);
+   int array[20];
+   int itemSearch;
+   cout<<"Enter 20 elements in array"<<endl;
+   for(int i=0; i<20; i++)
+      cin>>array[i];
+   cout<<"Enter element to search"<<endl;
+   cin>>itemSearch;
 
-   if(position<0)
-     cout<<"Element not present in the array";
-
-   else
-      cout<<"Element is present at position "<<position+1;
+   binarySearch(array,0,19,itemSearch);
 
    return 0;
 }
