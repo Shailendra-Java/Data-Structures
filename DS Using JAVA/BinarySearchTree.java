@@ -89,9 +89,9 @@ public class BinarySearchTree extends Utility{
 	}
 	
 	void deleteLeafNode(Node curr, Node parent, int data){
-		if(parent.lChild.data == data)
+		if(parent.lChild != null && parent.lChild.data == data)
 			parent.lChild = null;
-		else if(parent.rChild.data == data)
+		else if(parent.rChild != null && parent.rChild.data == data)
 			parent.rChild = null;
 		else{
 			err(data+" is not there in tree");
@@ -122,13 +122,14 @@ public class BinarySearchTree extends Utility{
 	
 	void deleteHavingBoth(Node curr, Node parent, int data){
 		Node inorder_succ = curr.rChild;
+		parent = curr;
 		while(inorder_succ.lChild != null){
 			parent = inorder_succ;
 			inorder_succ = inorder_succ.lChild;
 		}
 		curr.data = inorder_succ.data;
 		if(inorder_succ.lChild == null && inorder_succ.rChild == null)
-			deleteLeafNode(inorder_succ, parent, data);
+			deleteLeafNode(inorder_succ, parent, inorder_succ.data);
 		else
 			deleteHavingOne(inorder_succ, parent, inorder_succ.data);
 	}
