@@ -9,4 +9,8 @@ public class Utility{
 	public void println(Object object){
 		System.out.println(object);
 	}
+	
+	public void err(Object object){
+		System.err.println(object);
+	}
 }
