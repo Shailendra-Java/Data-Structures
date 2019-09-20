@@ -1,0 +1,91 @@
+1:- Write a program to find biggest number from an array.
+2:- Write a program to calculate average of an array.
+3:- Write a program to copy elements of 1st array into second.
+4:- Write a program to print elements of an array in descending order.
+5:- Write a program to add two matrices.
+6:- Write a program to multiplication of two matrix.
+7:- Write a program to print like
+	*				
+	**			  
+	***
+	****
+	*****
+	****
+	***
+	**
+	*
+8:- Write a program to print a pyramid like
+          9 8 7 6 5 4 3 2 1 0
+            9 8 7 6 5 4 3 2 1
+              9 8 7 6 5 4 3 2
+                9 8 7 6 5 4 3
+                  9 8 7 6 5 4
+	 	    9 8 7 6 5
+	              9 8 7 6 
+	                9 8 7
+	                  9 8
+                            9
+                            0
+                          1 0
+	                2 1 0
+	              3 2 1 0
+	            4 3 2 1 0
+	          5 4 3 2 1 0
+	        6 5 4 3 2 1 0
+	      7 6 5 4 3 2 1 0
+	    8 7 6 5 4 3 2 1 0
+	  9 8 7 6 5 4 3 2 1 0
+9:- Write a program to calculate x^y.
+10:- Write a program to calculate area of a triangle.
+11:- Write a program to find out the factorial of a number.
+12:- Write a program to print fibonacci series from 1-100.
+13:- Write a program to check given number is palindrome or not.
+14:- Write a program to check given number is armstrong or not.
+15:- Write a program to generate prime numbers.
+16:- Write a program to print counting table from 2 to 20.
+17:- Write a program to print Pyramid like
+*
+**
+***
+****
+*****
+******
+*******
+********
+18:- Write a program to print pyramid like
+	        1
+               2 1 2
+            3 2 1 2 3
+          4 3 2 1 2 3 4
+        5 4 3 2 1 2 3 4 5
+      6 5 4 3 2 1 2 3 4 5 6
+    7 6 5 4 3 2 1 2 3 4 5 6 7
+  8 7 6 5 4 3 2 1 2 3 4 5 6 7 8
+9 8 7 6 5 4 3 2 1 2 3 4 5 6 7 8 9
+
+19:- Write a program to print pyramid like
+* * * * * * * * * * 
+* * * * * * * * *
+* * * * * * * *
+* * * * * * *
+* * * * * *
+* * * * *
+* * * *
+* * *
+* * 
+*
+* *
+* * *
+* * * *
+* * * * *
+* * * * * *
+* * * * * * *
+* * * * * * * *
+* * * * * * * * *
+* * * * * * * * * *   
+
+20:- Write a program to sum of first 10 natural digits.
+21:- Write a program to sum of digits.
+22:- Write a program to print Vowels and Consonant using while loop.
+23:- Write a program to display un-ordered numbers of array into assending order.
+24:- Write a program to find middle index of an array.
