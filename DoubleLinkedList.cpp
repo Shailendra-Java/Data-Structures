@@ -9,262 +9,208 @@ class Node
         Node *prev;
 };
 
-class Operations
-{
+class List{
     Node *START, *LAST;
     public:
-        Operations()
-        {
+        List(){
             START = LAST = NULL;
         }
-        Node* createNode(int n)
-        {
-            Node *temp = new Node;
-            temp->data = n;
-            temp->next = temp->prev = NULL;
-            return temp;
+
+        Node* createNode(int num){
+            Node *tmp = new Node;
+            tmp->data = num;
+            tmp->next = tmp->prev = NULL;
+            return tmp;
         }
-        void insertAtFront()
-        {
-            int num;
-            Node *newNode;
+
+        int getNum(){
+            int n;
             cout<<"Enter a number"<<endl;
-            cin>>num;
-            newNode = createNode(num);
-            if(START == NULL)
-            {
+            cin>>n;
+            return n;
+        }
+
+        void addAtBeg(){
+            Node *newNode = createNode(getNum());
+            if(START == NULL){
                 START = LAST = newNode;
-                cout<<"First Node inserted"<<endl;
-            }
-            else{
-                START->prev = newNode;
+                cout<<"First node added"<<endl;
+            }else{
+                if(newNode->data > START->data){
+                    cout<<"Largest values not allowed at beginning"<<endl;
+                    return;
+                }
                 newNode->next = START;
+                START->prev = newNode;
                 START = newNode;
-                cout<<"Node inserted at Front"<<endl;
+                cout<<"Node added at beginning"<<endl;
             }
         }
-        void insertAtMid()
-        {
-            int num;
-            Node *newNode, *curr, *prev;
-            cout<<"Enter a number"<<endl;
-            cin>>num;
-            newNode = createNode(num);
-            curr = START;
-            prev = NULL;
-            if(START == NULL)
-            {
+
+        void addBetween(){
+            Node *curr=START, *prv=NULL, *newNode;
+            newNode = createNode(getNum());
+            if(START == NULL){
                 START = LAST = newNode;
-                cout<<"First Node inserted"<<endl;
-            }
-            else{
-                while(num > curr->data && curr->next != NULL)
-                {
-                    prev = curr;
+                cout<<"First node added"<<endl;
+            }else{
+                while(curr != NULL && curr->data < newNode->data){
+                    prv = curr;
                     curr = curr->next;
                 }
-                if(curr->next == NULL)
-                {
-                    curr->next = newNode;
-                    newNode->prev = curr;
+                if(curr == NULL){
+                    LAST->next = newNode;
+                    newNode->prev = LAST;
                     LAST = newNode;
-                }
-                else if(prev == NULL)
-                {
-                    curr->prev = newNode;
-                    newNode->next = curr;
+                    cout<<"Node added at last"<<endl;
+                }else if(prv == NULL){
+                    newNode->next = START;
+                    START->prev = newNode;
                     START = newNode;
-                }
-                else{
-                    prev->next = newNode;
-                    newNode->prev = prev;
+                    cout<<"Node added at beginning"<<endl;
+                }else{
                     newNode->next = curr;
+                    newNode->prev = prv;
+                    prv->next = newNode;
                     curr->prev = newNode;
+                    cout<<"Node added between two nodes"<<endl;
                 }
-                cout<<"Node inserted at their position"<<endl;
             }
         }
-        void insertAtLast()
-        {
-            int num;
-            Node *newNode;
-            cout<<"Enter a number"<<endl;
-            cin>>num;
-            newNode = createNode(num);
-            if(START == NULL)
-            {
+
+        void addAtLast(){
+            Node *newNode = createNode(getNum());
+            if(START == NULL){
                 START = LAST = newNode;
-                cout<<"First Node inserted"<<endl;
-            }
-            else{
+                cout<<"First node added"<<endl;
+            }else{
+                if(newNode->data < LAST->data){
+                    cout<<"Smaller values not allowed at last"<<endl;
+                    return;
+                }
                 LAST->next = newNode;
                 newNode->prev = LAST;
                 LAST = newNode;
-                cout<<"Node inserted at Last"<<endl;
+                cout<<"Node added at last"<<endl;
             }
         }
-        void deleteFromFront()
-        {
+
+        void deleteFromBeg(){
             Node *curr = START;
-            if(START == NULL)
-            {
-                cout<<"List is empty"<<endl;
-            }
-            else{
-                START = START->next;
-                START->prev = NULL;
-                delete(curr);
-                cout<<"Node Deleted from front"<<endl;
-            }
-        }
-        void deleteFromMid()
-        {
-            int num;
-            Node *curr, *prev;
-            cout<<"Enter a number to delete"<<endl;
-            cin>>num;
-            curr = START;
-            prev = NULL;
-            if(START == NULL)
-            {
-                cout<<"List is empty"<<endl;
-            }
-            else{
-                while(num != curr->data && curr->next != NULL)
-                {
-                    prev = curr;
-                    curr = curr->next;
-                }
-                if(START == LAST)
-                {
-                    START = LAST = NULL;
-                    delete(curr);
-                }
-                else if(curr->next == NULL)
-                {
-                    LAST = LAST->prev;
-                    LAST->next = NULL;
-                    delete(curr);
-                }
-                else if(prev == NULL)
-                {
-                    START = START->next;
-                    START->prev = NULL;
-                    delete(curr);
-                }
-                else{
-                    prev->next = curr->next;
-                    curr->next->prev = prev;
-                    delete(curr);
-                }
-                cout<<"Node deleted from their position"<<endl;
-            }
-        }
-        void deleteFromLast()
-        {
-            Node *curr = LAST;
-            if(START == NULL)
-            {
-                cout<<"List is empty"<<endl;
-            }
-            else{
-                LAST = LAST->prev;
-                LAST->next = NULL;
-                delete(curr);
-                cout<<"Node Deleted from last"<<endl;
-            }
-        }
-        void search()
-        {
-            int item;
-            Node *curr = START;
-            cout<<"Enter number to search"<<endl;
-            cin>>item;
             if(START == NULL){
                 cout<<"List is empty"<<endl;
                 return;
             }
-            while(curr != NULL){
-                if(item == curr->data){
-                    cout<<"Number found in list"<<endl;
-                    break;
-                }
-            }
-            if(curr == NULL)
-                cout<<"Number not found"<<endl;
-        }
-        void printAsc()
-        {
-            Node *curr = START;
-            if(START == NULL)
-                cout<<"List is empty"<<endl;
-            else{
-                while(curr != NULL)
-                {
-                    cout<<curr->data<<"  ";
-                    curr = curr->next;
-                }
-                cout<<endl;
+            START = START->next;
+            if(START != NULL){
+                START->prev = NULL;
+                delete curr;
+                cout<<"\aNode deleted from beginning"<<endl;
             }
         }
-        void printDesc()
-        {
+
+        void deleteFromLast(){
             Node *curr = LAST;
-            if(START == NULL)
+            if(START == NULL){
                 cout<<"List is empty"<<endl;
-            else{
-                while(curr != NULL)
-                {
-                    cout<<curr->data<<"  ";
-                    curr = curr->prev;
-                }
-                cout<<endl;
+                return;
             }
+            LAST = LAST->prev;
+            if(LAST != NULL){
+                LAST->next = NULL;
+                delete curr;
+                cout<<"\aNode deleted from last"<<endl;
+            }
+        }
+
+        void deleteFromBtw(){
+            Node *curr = START, *prv=NULL;
+            int x = getNum();
+            if(START == NULL){
+                cout<<"List is empty"<<endl;
+                return;
+            }
+            while(curr!= NULL && curr->data != x){
+                prv = curr;
+                curr = curr->next;
+            }
+            if(curr == NULL){
+                cout<<"Node is not there"<<endl;
+                return;
+            }
+            if(curr == LAST){
+                LAST = LAST->prev;
+                if(LAST != NULL){
+                    LAST->next = NULL;
+                    delete curr;
+                    cout<<"\aNode deleted from last"<<endl;
+                }
+            }
+            else if(prv == NULL){
+               START = START->next;
+                if(START != NULL){
+                    START->prev = NULL;
+                    delete curr;
+                    cout<<"\aNode deleted from beginning"<<endl;
+                }
+            }else{
+                prv->next = curr->next;
+                curr->next->prev = prv;
+                delete curr;
+                cout<<"\aNode deleted from between two nodes"<<endl;
+            }
+        }
+
+        void printList(){
+            Node *curr = START;
+            if(START == NULL){
+                cout<<"List is empty"<<endl;
+                return;
+            }
+            cout<<"List in Forward Direction"<<endl;
+            while(curr != NULL){
+                cout<<curr->data<<"  ";
+                curr = curr->next;
+            }
+            cout<<"\nList in Backward Direction"<<endl;
+            curr = LAST;
+            while(curr != NULL){
+                cout<<curr->data<<"  ";
+                curr = curr->prev;
+            }
+            cout<<endl;
         }
 };
-main()
-{
-    Operations lio;
+main(){
     int choice;
-    do
-    {
-        cout<<"1. Insert Front\t2. Insert Mid"<<endl;
-        cout<<"3. Insert Last\t4. Display"<<endl;
-        cout<<"5. Delete Front\t6. Delete Mid"<<endl;
-        cout<<"7. Delete Last\t8. Search"<<endl;
+    List lst;
+    do{
+        cout<<"1. Add Beginning\n2. Add Last\n3. Add Between\n4. Print List"<<endl;
+        cout<<"5. Delete From Beginning\n6. Delete From Last\n7. Delete From Between"<<endl;
         cout<<"0. Exit"<<endl;
         cin>>choice;
-        switch(choice)
-        {
+        switch(choice){
             case 1:
-                lio.insertAtFront();
+                lst.addAtBeg();
                 break;
             case 2:
-                lio.insertAtMid();
+                lst.addAtLast();
                 break;
             case 3:
-                lio.insertAtLast();
+                lst.addBetween();
                 break;
             case 4:
-                cout<<"Forward Direction >>"<<endl;
-                lio.printAsc();
-                cout<<"Backward Direction >>"<<endl;
-                lio.printDesc();
+                lst.printList();
                 break;
             case 5:
-                lio.deleteFromFront();
+                lst.deleteFromBeg();
                 break;
             case 6:
-                lio.deleteFromMid();
+                lst.deleteFromLast();
                 break;
             case 7:
-                lio.deleteFromLast();
+                lst.deleteFromBtw();
                 break;
-            case 8:
-                lio.search();
-                break; */
-
         }
     }while(choice != 0);
 }
-
