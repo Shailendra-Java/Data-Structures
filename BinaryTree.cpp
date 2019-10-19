@@ -65,6 +65,8 @@ class BinaryTree{
 				parent->left = NULL;
 			else if(num > parent->data)
 				parent->right = NULL;
+            else
+                parent->right = NULL;
 
 			delete(current);
 			cout<<num<<" deleted from tree"<<endl;
@@ -100,23 +102,20 @@ class BinaryTree{
 
             Node *inorder_succ;
             inorder_succ = current->right;
+            parent = current;
             while(inorder_succ->left != NULL){
+                parent = inorder_succ;
                 inorder_succ = inorder_succ->left;
             }
 
             current->data = inorder_succ->data;
             if(inorder_succ->left == NULL && inorder_succ->right == NULL){
 
-                deleteLeaf(inorder_succ,parent,num);
-            }
-
-            else if(inorder_succ->left != NULL && inorder_succ->right == NULL){
-
-                deleteHavingLeft(inorder_succ,parent,num);
+                deleteLeaf(inorder_succ,parent,inorder_succ->data);
             }
             else if(inorder_succ->left == NULL && inorder_succ->right != NULL){
 
-                deleteHavingRight(inorder_succ,parent,num);
+                deleteHavingRight(inorder_succ,parent,inorder_succ->data);
             }
     }
 
@@ -141,6 +140,11 @@ class BinaryTree{
         	delete(current);
         	cout<<num<<" deleted from tree"<<endl;
 		}
+		if(current == NULL)
+        {
+            cout<<"Node is not there"<<endl;
+            return;
+        }
 
 		if(current->left == NULL && current->right == NULL){
 
@@ -213,9 +217,8 @@ class BinaryTree{
 int main(){
     BinaryTree bt;
     int opn;
-    char choice;
     do{
-        cout<<"1. Insert\n2. Delete\n3. Display"<<endl;
+        cout<<"1. Insert\n2. Delete\n3. Display\n0. Exit"<<endl;
         cin>>opn;
         switch(opn){
             case 1:
@@ -228,8 +231,6 @@ int main(){
                 bt.display();
                 break;
         }
-        cout<<"Do you want to continue(y/n)"<<endl;
-        cin>>choice;
-    }while(choice == 'y' || choice == 'Y');
-}
 
+    }while(opn != 0);
+}
