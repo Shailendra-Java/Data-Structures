@@ -103,10 +103,10 @@ class List{
             }
             START = START->next;
             if(START != NULL){
-                START->prev = NULL;
-                delete curr;
-                cout<<"\aNode deleted from beginning"<<endl;
+                START->prev = NULL;                
             }
+            delete curr;
+            cout<<"\aNode deleted from beginning"<<endl;
         }
 
         void deleteFromLast(){
@@ -117,10 +117,10 @@ class List{
             }
             LAST = LAST->prev;
             if(LAST != NULL){
-                LAST->next = NULL;
-                delete curr;
-                cout<<"\aNode deleted from last"<<endl;
+                LAST->next = NULL; 
             }
+            delete curr;
+            cout<<"\aNode deleted from last"<<endl;
         }
 
         void deleteFromBtw(){
