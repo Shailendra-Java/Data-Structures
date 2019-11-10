@@ -140,6 +140,7 @@ class BinaryTree{
 			root = NULL;
         		delete(current);
         		cout<<num<<" deleted from tree"<<endl;
+			return;
 		}
 	}
 	if(current == NULL)
