@@ -136,11 +136,13 @@ class BinaryTree{
                 current = current->right;
         }
         if(parent == NULL){
-        	root = NULL;
-        	delete(current);
-        	cout<<num<<" deleted from tree"<<endl;
+        	if(current->left == NULL && current->right == NULL){
+			root = NULL;
+        		delete(current);
+        		cout<<num<<" deleted from tree"<<endl;
 		}
-		if(current == NULL)
+	}
+	if(current == NULL)
         {
             cout<<"Node is not there"<<endl;
             return;
